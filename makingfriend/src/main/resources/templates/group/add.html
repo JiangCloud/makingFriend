@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:mo="https://gitee.com/aun/Timo">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+    <link rel="stylesheet" th:href="@{/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css}" type="text/css">
+</head>
+<body>
+<div class="layui-form timo-compile">
+    <form th:action="@{/group/saveGroup}">
+        <input type="hidden" name="groupId" th:if="${group}" th:value="${group.id}"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">群组名称</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="groupname"  placeholder="请输入群组名称" th:value="${group?.name}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">群组描述</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="desc" placeholder="请输入群组描述" th:value="${group?.description}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">群组管理员</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="owner" placeholder="请输入群组管理员" th:value="${group?.owner}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">成员数量</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="number"  name="maxusers" placeholder="请输入成员数量" th:value="${group?.maxusers}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择群类型</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="public" value="true" title="公开" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>公开</div></div>
+                <input type="radio" name="public" value="false" title="私有" th:checked="${group?._public} eq false"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>私有</div></div>
+            </div>
+        </div>
+
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/zTree_v3/js/jquery.ztree.core.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/timoTree.js}"></script>
+<script type="text/javascript">
+    // 树形菜单
+    $.fn.selectTree();
+</script>
+</body>
+</html>
